@@ -5,9 +5,22 @@ var express = require('express'),
 //set the port
 app.set('port', 3000);
 
-//tell express that we want to use the www folder
+//tell express that we want to use the public folder
 //for our static assets
-app.use(express.static(path.join(__dirname, '../www')));
+app.use(express.static(path.join(__dirname, 'www')));
+console.log(__dirname)
+/* app.get('/', (req, res) => {
+    // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
+    res.send('Hello World!');
+}); */
+app.get('/hello', (req, res) => {
+    // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
+    res.send('Goodbye!');
+});
+app.post('/hello', (req, res) => {
+    // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
+    res.send('Hello World, POST eh?');
+});
 
 // Listen for requests
 var server = app.listen(app.get('port'), function () {
@@ -16,3 +29,5 @@ var server = app.listen(app.get('port'), function () {
 
 
 //console.log('I AM ALIVE!')
+
+// https://code.tutsplus.com/tutorials/code-your-first-api-with-nodejs-and-express-understanding-rest-apis--cms-31697
