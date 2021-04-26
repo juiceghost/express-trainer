@@ -3,6 +3,8 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser');
 
+var userName = 'Krille';
+console.log("userName is equal to " + userName)
 //set the port
 app.set('port', 3000);
 // parse application/x-www-form-urlencoded
@@ -23,13 +25,14 @@ app.get('/hello', (req, res) => {
     // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
     
     // { message: 'Goodbye!'}
-    
-    res.send({ message: 'Goodbye!'});
+    console.log("inside app.get: userName is equal to " + userName)
+    res.send({ message: 'Goodbye ' + userName + "!"});
 });
 app.post('/hello', (req, res) => {
     // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
     console.log(req.body.user)
-    res.send({ message: 'Goodbye Mr. Post'});
+    userName = req.body.user;
+    res.send({ message: `Goodbye Mr. ${req.body.user || 'Post'}`});
 });
 
 // Listen for requests
