@@ -1,25 +1,35 @@
 var express = require('express'),
     path = require('path'),
-    app = express();
+    app = express(),
+    bodyParser = require('body-parser');
 
 //set the port
 app.set('port', 3000);
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
+// parse application/json
+app.use(bodyParser.json())
 //tell express that we want to use the public folder
 //for our static assets
-app.use(express.static(path.join(__dirname, 'www')));
-console.log(__dirname)
+app.use(express.static(path.join(__dirname, 'public')));
+console.log(path.join(__dirname, 'public'))
 /* app.get('/', (req, res) => {
     // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
     res.send('Hello World!');
 }); */
+
 app.get('/hello', (req, res) => {
     // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
-    res.send('Goodbye!');
+    
+    // { message: 'Goodbye!'}
+    
+    res.send({ message: 'Goodbye!'});
 });
 app.post('/hello', (req, res) => {
     // https://www.digitalocean.com/community/tutorials/nodejs-serving-static-files-in-express
-    res.send('Hello World, POST eh?');
+    console.log(req.body.user)
+    res.send({ message: 'Goodbye Mr. Post'});
 });
 
 // Listen for requests
